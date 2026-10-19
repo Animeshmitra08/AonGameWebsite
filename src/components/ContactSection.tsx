@@ -6,25 +6,15 @@ import {
   LoaderCircle,
   Mail,
   MapPin,
-  MessageCircle,
   Phone,
-  Play,
-  type LucideIcon,
 } from 'lucide-react';
 import Reveal from './Reveal';
-
-/* icon is a Lucide component, or a text glyph for brands Lucide no longer ships */
-const socialLinks: { name: string; icon: LucideIcon | string; href: string }[] = [
-  { name: 'Twitter', icon: '𝕏', href: '#' },
-  { name: 'Discord', icon: MessageCircle, href: '#' },
-  { name: 'YouTube', icon: Play, href: '#' },
-  { name: 'LinkedIn', icon: 'in', href: '#' },
-];
+import { socialLinks } from '../data/socialLinks';
 
 const contactDetails = [
-  { icon: Mail, label: 'Email', value: 'hello@aondigicon.com', href: 'mailto:hello@aondigicon.com' },
-  { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: '#' },
-  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+  { icon: Mail, label: 'Email', value: 'aondigicon@gmail.com\nsupport@aondigicon.com', href: 'mailto:aondigicon@gmail.com' },
+  { icon: MapPin, label: 'Location', value: 'Aon Digicon LLP 1st Floor, Plot No: 176\nTransport Nagar, Korba, CG 495677', href: 'https://aondigicon.com' },
+  { icon: Phone, label: 'Phone', value: '+91 98935 78798', href: 'tel:+919893578798' },
 ];
 
 const subjectOptions = ['General', 'Partnership', 'Career', 'Support'];
@@ -99,7 +89,7 @@ export default function ContactSection() {
                   </span>
                   <div className="min-w-0">
                     <p className="text-xs text-slate-500 uppercase tracking-[0.16em]">{detail.label}</p>
-                    <p className="text-white font-medium truncate group-hover:text-primary transition-colors duration-300">
+                    <p className="text-white font-medium whitespace-pre-line break-words group-hover:text-primary transition-colors duration-300">
                       {detail.value}
                     </p>
                   </div>
@@ -115,14 +105,13 @@ export default function ContactSection() {
                   <a
                     key={social.name}
                     href={social.href}
-                    aria-label={social.name}
-                    className="flex items-center justify-center w-11 h-11 rounded-xl border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-white hover:border-primary/50 hover:bg-primary/15 hover:shadow-[0_0_14px_rgba(59,158,255,0.3)] transition-all duration-300 hover:-translate-y-0.5 text-sm font-bold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${social.name} (opens in a new tab)`}
+                    title={social.name}
+                    className="flex items-center justify-center w-11 h-11 rounded-xl border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-white hover:border-primary/50 hover:bg-primary/15 hover:shadow-[0_0_14px_rgba(59,158,255,0.3)] transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    {typeof social.icon === 'string' ? (
-                      <span aria-hidden="true">{social.icon}</span>
-                    ) : (
-                      <social.icon className="w-4 h-4" aria-hidden="true" />
-                    )}
+                    <social.icon className="w-[18px] h-[18px]" aria-hidden="true" />
                   </a>
                 ))}
               </div>

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
-import { Camera, Check, MessageCircle, Play, Tv, type LucideIcon } from 'lucide-react';
+import { Check } from 'lucide-react';
 import appsAndGames from '../data/apps-and-games.json';
+import { socialLinks } from '../data/socialLinks';
 
 const quickLinks = [
   { label: 'Home', href: '#hero' },
@@ -8,15 +9,6 @@ const quickLinks = [
   { label: 'About', href: '#about' },
   { label: 'Team', href: '#team' },
   { label: 'Contact', href: '#contact' },
-];
-
-/* icon is a Lucide component, or a text glyph for brands Lucide no longer ships */
-const socialLinks: { name: string; icon: LucideIcon | string; href: string }[] = [
-  { name: 'Twitter', icon: '𝕏', href: '#' },
-  { name: 'Discord', icon: MessageCircle, href: '#' },
-  { name: 'YouTube', icon: Play, href: '#' },
-  { name: 'Twitch', icon: Tv, href: '#' },
-  { name: 'Instagram', icon: Camera, href: '#' },
 ];
 
 export default function Footer() {
@@ -55,14 +47,13 @@ export default function Footer() {
                 <a
                   key={social.name}
                   href={social.href}
-                  aria-label={social.name}
-                  className="flex items-center justify-center w-9 h-9 rounded-lg border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-white hover:border-primary/50 hover:bg-primary/15 transition-all duration-300 hover:-translate-y-0.5 text-xs font-bold"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${social.name} (opens in a new tab)`}
+                  title={social.name}
+                  className="flex items-center justify-center w-9 h-9 rounded-lg border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-white hover:border-primary/50 hover:bg-primary/15 transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  {typeof social.icon === 'string' ? (
-                    <span aria-hidden="true">{social.icon}</span>
-                  ) : (
-                    <social.icon className="w-4 h-4" aria-hidden="true" />
-                  )}
+                  <social.icon className="w-4 h-4" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -160,7 +151,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://aonapps.in:6070/privacypolicygame/"
               className="text-slate-500 hover:text-slate-200 transition-colors duration-300 text-sm"
             >
               Privacy Policy
