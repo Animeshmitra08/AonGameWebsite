@@ -1,0 +1,6 @@
+# Add each advertising system authorized to sell your inventory.
+# Format: ad-system-domain, publisher-account-id, DIRECT|RESELLER, certification-authority-id
+#
+# Replace the placeholders below with your actual account details, then uncomment.
+# google.com, pub-REPLACE_WITH_YOUR_PUBLISHER_ID, DIRECT, f08c47fec0942fa0
+google.com, pub-8056342735596051, DIRECT, f08c47fec0942fa0

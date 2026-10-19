@@ -1,0 +1,113 @@
+{
+  "apps": [],
+  "games": [
+  {
+    "name": "Cyber Nexus 2077",
+    "genre": "Cyberpunk RPG",
+    "description": "Dive into a sprawling neon-lit metropolis where every choice reshapes the world. Hack, fight, and forge alliances in a dystopian future.",
+    "tag": "RPG",
+    "tagEmoji": "🎮",
+    "rating": 5,
+    "gradient": "linear-gradient(135deg, #0ff 0%, #6366f1 50%, #a855f7 100%)",
+    "tagColor": "bg-purple-600/80",
+    "googlePlay": {
+      "available": false,
+      "link": null
+    },
+    "appStore": {
+      "available": false,
+      "link": null
+    }
+  },
+  {
+    "name": "Shadow Realm",
+    "genre": "Dark Fantasy Adventure",
+    "description": "Venture into cursed lands teeming with ancient horrors. Wield forbidden magic and uncover secrets buried beneath a dying world.",
+    "tag": "Adventure",
+    "tagEmoji": "⚔️",
+    "rating": 5,
+    "gradient": "linear-gradient(135deg, #dc2626 0%, #7c3aed 50%, #1e1b4b 100%)",
+    "tagColor": "bg-red-600/80",
+    "googlePlay": {
+      "available": false,
+      "link": null
+    },
+    "appStore": {
+      "available": false,
+      "link": null
+    }
+  },
+  {
+    "name": "Stellar Odyssey",
+    "genre": "Space Exploration",
+    "description": "Chart unknown star systems, build your fleet, and make first contact with alien civilizations across a procedurally generated galaxy.",
+    "tag": "Sci-Fi",
+    "tagEmoji": "🚀",
+    "rating": 4,
+    "gradient": "linear-gradient(135deg, #1e3a5f 0%, #0ea5e9 50%, #38bdf8 100%)",
+    "tagColor": "bg-sky-600/80",
+    "googlePlay": {
+      "available": false,
+      "link": null
+    },
+    "appStore": {
+      "available": false,
+      "link": null
+    }
+  },
+  {
+    "name": "Neon Racers",
+    "genre": "Futuristic Racing",
+    "description": "Blaze through anti-gravity tracks at breakneck speeds. Customize your hovercraft and dominate the neon-soaked racing circuit.",
+    "tag": "Racing",
+    "tagEmoji": "🏎️",
+    "rating": 4,
+    "gradient": "linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #ec4899 100%)",
+    "tagColor": "bg-amber-600/80",
+    "googlePlay": {
+      "available": false,
+      "link": null
+    },
+    "appStore": {
+      "available": false,
+      "link": null
+    }
+  },
+  {
+    "name": "Mythic Legends",
+    "genre": "Strategy RPG",
+    "description": "Command legendary heroes, build mighty kingdoms, and wage epic wars in a richly crafted mythological world.",
+    "tag": "Strategy",
+    "tagEmoji": "🏰",
+    "rating": 5,
+    "gradient": "linear-gradient(135deg, #059669 0%, #10b981 50%, #fbbf24 100%)",
+    "tagColor": "bg-emerald-600/80",
+    "googlePlay": {
+      "available": false,
+      "link": null
+    },
+    "appStore": {
+      "available": false,
+      "link": null
+    }
+  },
+  {
+    "name": "Zero Gravity",
+    "genre": "Puzzle Platformer",
+    "description": "Manipulate gravity, bend space, and solve mind-bending puzzles across surreal dimensions in this award-winning platformer.",
+    "tag": "Puzzle",
+    "tagEmoji": "🧩",
+    "rating": 4,
+    "gradient": "linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #06b6d4 100%)",
+    "tagColor": "bg-pink-600/80",
+    "googlePlay": {
+      "available": false,
+      "link": null
+    },
+    "appStore": {
+      "available": false,
+      "link": null
+    }
+  }
+  ]
+}
