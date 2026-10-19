@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { m } from 'framer-motion';
+import { Play, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', href: '#hero' },
@@ -20,10 +22,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* ── lock body scroll when mobile menu is open ── */
+  /* ── lock body scroll + close on Escape when mobile menu is open ── */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    if (mobileOpen) window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
   }, [mobileOpen]);
 
   /* ── intersection observer for active link highlight ── */
@@ -63,49 +72,52 @@ export default function Navbar() {
   return (
     <>
       <nav
+        aria-label="Primary"
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-dark/80 backdrop-blur-xl shadow-lg shadow-primary/5 border-b border-dark-border/50'
+            ? 'bg-dark/70 backdrop-blur-xl shadow-[0_10px_30px_-15px_rgba(0,0,0,0.8)] border-b border-white/[0.06]'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16 md:h-20">
+        <div className="mx-auto max-w-7xl flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-16 md:h-20">
           {/* ── Logo ── */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
-            className="relative flex items-baseline gap-0 group select-none"
+            className="relative flex items-baseline gap-0 group select-none rounded-md"
           >
-            <span className="font-heading text-base sm:text-xl md:text-2xl font-black tracking-wider text-white drop-shadow-[0_0_12px_rgba(163,230,53,0.35)] transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(163,230,53,0.6)]">
+            <span className="font-heading text-base sm:text-xl md:text-2xl font-black tracking-wider text-white drop-shadow-[0_0_12px_rgba(59,158,255,0.35)] transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(59,158,255,0.6)]">
               AONDIGICON
             </span>
-            <span className="font-heading text-base sm:text-xl md:text-2xl font-black tracking-wider text-accent ml-1 drop-shadow-[0_0_10px_rgba(45,212,191,0.5)] transition-all duration-300 group-hover:drop-shadow-[0_0_18px_rgba(45,212,191,0.8)]">
+            <span className="font-heading text-base sm:text-xl md:text-2xl font-black tracking-wider text-accent ml-1 drop-shadow-[0_0_10px_rgba(167,139,250,0.5)] transition-all duration-300 group-hover:drop-shadow-[0_0_18px_rgba(167,139,250,0.8)]">
               GAMES
             </span>
             {/* animated glow line under logo */}
-            <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-primary via-accent to-secondary rounded-full transition-all duration-500 group-hover:w-full" />
+            <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-primary via-secondary to-accent rounded-full transition-all duration-500 group-hover:w-full" />
           </a>
 
           {/* ── Desktop Links ── */}
-          <ul className="hidden md:flex items-center gap-1 lg:gap-2">
+          <ul className="hidden md:flex items-center gap-0.5 rounded-full border border-white/[0.06] bg-white/[0.025] p-1 backdrop-blur-md">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href;
               return (
-                <li key={link.href}>
+                <li key={link.href} className="relative">
+                  {isActive && (
+                    <m.span
+                      layoutId="nav-active-pill"
+                      className="absolute inset-0 rounded-full border border-primary/25 bg-gradient-to-b from-primary/20 to-secondary/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
                   <a
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`relative px-3 py-2 text-sm font-medium tracking-wide uppercase transition-colors duration-300 rounded-md
-                      ${isActive ? 'text-accent' : 'text-gray-300 hover:text-white'}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`relative block px-3.5 lg:px-4 py-1.5 text-xs lg:text-[13px] font-semibold tracking-[0.14em] uppercase rounded-full transition-colors duration-300
+                      ${isActive ? 'text-white' : 'text-slate-400 hover:text-white'}
                     `}
                   >
                     {link.label}
-                    {/* active / hover underline */}
-                    <span
-                      className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-accent transition-all duration-300 ${
-                        isActive ? 'w-4/5 opacity-100' : 'w-0 opacity-0'
-                      }`}
-                    />
                   </a>
                 </li>
               );
@@ -116,36 +128,25 @@ export default function Navbar() {
           <a
             href="#games"
             onClick={(e) => handleNavClick(e, '#games')}
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-bold uppercase tracking-wider text-white
-              bg-gradient-to-r from-primary via-secondary to-accent
-              shadow-lg shadow-primary/25
-              transition-all duration-300
-              hover:shadow-primary/50 hover:scale-105 hover:brightness-110
-              active:scale-95
-              relative overflow-hidden group"
+            className="btn-primary hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs lg:text-sm font-bold uppercase tracking-wider"
           >
-            {/* shimmer sweep */}
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 group-hover:translate-x-full transition-transform duration-700 ease-out" />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            <span className="relative z-10">Play Now</span>
+            <Play className="w-4 h-4 fill-current" aria-hidden="true" />
+            <span>Play Now</span>
           </a>
 
           {/* ── Mobile Hamburger ── */}
           <button
+            type="button"
             onClick={() => setMobileOpen((v) => !v)}
-            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-gray-300 hover:text-white transition-colors"
+            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-primary/40 transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
-            <div className="relative w-6 h-5 flex flex-col justify-between">
+            <div className="relative w-5 h-4 flex flex-col justify-between">
               <span
                 className={`block h-0.5 w-full bg-current rounded-full transition-all duration-300 origin-center ${
-                  mobileOpen ? 'translate-y-[9px] rotate-45' : ''
+                  mobileOpen ? 'translate-y-[7px] rotate-45' : ''
                 }`}
               />
               <span
@@ -155,7 +156,7 @@ export default function Navbar() {
               />
               <span
                 className={`block h-0.5 w-full bg-current rounded-full transition-all duration-300 origin-center ${
-                  mobileOpen ? '-translate-y-[9px] -rotate-45' : ''
+                  mobileOpen ? '-translate-y-[7px] -rotate-45' : ''
                 }`}
               />
             </div>
@@ -165,7 +166,7 @@ export default function Navbar() {
 
       {/* ── Mobile Overlay ── */}
       <div
-        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
           mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMobileOpen(false)}
@@ -173,7 +174,10 @@ export default function Navbar() {
 
       {/* ── Mobile Slide-in Menu ── */}
       <aside
-        className={`fixed top-0 right-0 z-50 h-full w-72 bg-dark/95 backdrop-blur-2xl border-l border-dark-border/60 shadow-2xl shadow-black/50 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+        id="mobile-menu"
+        aria-label="Mobile navigation"
+        inert={!mobileOpen}
+        className={`fixed top-0 right-0 z-50 h-full w-[min(20rem,85vw)] bg-dark-lighter/95 backdrop-blur-2xl border-l border-white/[0.06] shadow-2xl shadow-black/60 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
           mobileOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -183,17 +187,16 @@ export default function Navbar() {
             AONDIGICON<span className="text-accent ml-1">GAMES</span>
           </span>
           <button
+            type="button"
             onClick={() => setMobileOpen(false)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Close menu"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
-        <div className="h-px mx-5 bg-gradient-to-r from-primary/40 via-accent/30 to-transparent" />
+        <div className="h-px mx-5 bg-gradient-to-r from-primary/50 via-secondary/30 to-transparent" />
 
         {/* mobile nav links */}
         <ul className="flex flex-col gap-1 px-3 mt-4">
@@ -212,16 +215,17 @@ export default function Navbar() {
                 <a
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold uppercase tracking-wider transition-all duration-300
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold uppercase tracking-wider transition-all duration-300
                     ${isActive
-                      ? 'text-accent bg-accent/10 border border-accent/20'
-                      : 'text-gray-300 hover:text-white hover:bg-white/5 border border-transparent'
+                      ? 'text-white bg-gradient-to-r from-primary/15 to-secondary/5 border border-primary/25'
+                      : 'text-slate-300 hover:text-white hover:bg-white/5 border border-transparent'
                     }
                   `}
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                      isActive ? 'bg-accent shadow-[0_0_6px_rgba(45,212,191,0.6)]' : 'bg-gray-600'
+                      isActive ? 'bg-primary shadow-[0_0_8px_rgba(59,158,255,0.8)]' : 'bg-slate-600'
                     }`}
                   />
                   {link.label}
@@ -243,21 +247,15 @@ export default function Navbar() {
           <a
             href="#games"
             onClick={(e) => handleNavClick(e, '#games')}
-            className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg text-sm font-bold uppercase tracking-wider text-white
-              bg-gradient-to-r from-primary via-secondary to-accent
-              shadow-lg shadow-primary/25
-              hover:shadow-primary/40 hover:brightness-110
-              active:scale-[0.97] transition-all duration-300"
+            className="btn-primary flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl text-sm font-bold uppercase tracking-wider"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+            <Play className="w-4 h-4 fill-current" aria-hidden="true" />
             Play Now
           </a>
         </div>
 
         {/* decorative bottom glow */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-secondary/10 to-transparent pointer-events-none" />
       </aside>
     </>
   );

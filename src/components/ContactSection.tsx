@@ -1,16 +1,30 @@
 import { useState, type FormEvent } from 'react';
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  LoaderCircle,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Play,
+  type LucideIcon,
+} from 'lucide-react';
+import Reveal from './Reveal';
 
-const socialLinks = [
+/* icon is a Lucide component, or a text glyph for brands Lucide no longer ships */
+const socialLinks: { name: string; icon: LucideIcon | string; href: string }[] = [
   { name: 'Twitter', icon: '𝕏', href: '#' },
-  { name: 'Discord', icon: '🎮', href: '#' },
-  { name: 'YouTube', icon: '▶', href: '#' },
+  { name: 'Discord', icon: MessageCircle, href: '#' },
+  { name: 'YouTube', icon: Play, href: '#' },
   { name: 'LinkedIn', icon: 'in', href: '#' },
 ];
 
 const contactDetails = [
-  { icon: '📧', label: 'Email', value: 'hello@aondigicon.com', href: 'mailto:hello@aondigicon.com' },
-  { icon: '📍', label: 'Location', value: 'San Francisco, CA', href: '#' },
-  { icon: '📱', label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+  { icon: Mail, label: 'Email', value: 'hello@aondigicon.com', href: 'mailto:hello@aondigicon.com' },
+  { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: '#' },
+  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
 ];
 
 const subjectOptions = ['General', 'Partnership', 'Career', 'Support'];
@@ -37,36 +51,35 @@ export default function ContactSection() {
   };
 
   const inputClasses =
-    'w-full bg-dark border border-dark-border rounded-lg px-4 py-3 text-white placeholder-gray-500 transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none';
+    'w-full bg-dark/80 border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder-slate-500 shadow-[inset_0_1px_2px_rgba(0,0,0,0.4)] transition-all duration-300 hover:border-white/15 focus:border-primary focus:ring-4 focus:ring-primary/15 focus:outline-none';
 
   return (
     <section id="contact" className="relative py-24 md:py-32 bg-dark overflow-hidden">
       {/* Background accents */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="section-divider pointer-events-none absolute inset-x-0 top-0" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/[0.07] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/[0.08] rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium tracking-wide mb-4 border border-primary/20">
-            Get In Touch
-          </span>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">
-            Contact <span className="text-gradient">Us</span>
+        <Reveal className="text-center mb-14 sm:mb-16">
+          <span className="eyebrow mb-5">Get In Touch</span>
+          <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+            <span className="text-metal">Contact</span> <span className="text-gradient">Us</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
             Have a question or want to work together? We'd love to hear from you.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left column – Contact info */}
-          <div className="space-y-8 animate-fade-in-up">
+          <Reveal className="space-y-8">
             <div>
-              <h3 className="text-3xl md:text-4xl font-heading font-bold text-gradient mb-4">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gradient mb-4">
                 Let's Build Something Epic
               </h3>
-              <p className="text-gray-400 text-lg leading-relaxed">
+              <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
                 Whether you're looking to collaborate on a groundbreaking game, explore partnership
                 opportunities, or simply want to say hello — our team is ready to connect. Let's
                 create the next generation of gaming experiences together.
@@ -74,19 +87,19 @@ export default function ContactSection() {
             </div>
 
             {/* Contact details */}
-            <div className="space-y-5">
+            <div className="space-y-4">
               {contactDetails.map((detail) => (
                 <a
                   key={detail.label}
                   href={detail.href}
-                  className="group flex items-center gap-4 p-4 rounded-xl bg-dark-card/50 border border-dark-border hover:border-primary/40 transition-all duration-300"
+                  className="surface surface-interactive group flex items-center gap-4 p-4 rounded-xl"
                 >
-                  <span className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {detail.icon}
+                  <span className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg border border-primary/25 bg-gradient-to-br from-primary/20 to-secondary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                    <detail.icon className="w-5 h-5" aria-hidden="true" />
                   </span>
-                  <div>
-                    <p className="text-sm text-gray-500 uppercase tracking-wider">{detail.label}</p>
-                    <p className="text-white font-medium group-hover:text-primary transition-colors duration-300">
+                  <div className="min-w-0">
+                    <p className="text-xs text-slate-500 uppercase tracking-[0.16em]">{detail.label}</p>
+                    <p className="text-white font-medium truncate group-hover:text-primary transition-colors duration-300">
                       {detail.value}
                     </p>
                   </div>
@@ -96,30 +109,34 @@ export default function ContactSection() {
 
             {/* Social links */}
             <div>
-              <p className="text-sm text-gray-500 uppercase tracking-wider mb-3">Follow Us</p>
+              <p className="text-xs text-slate-500 uppercase tracking-[0.16em] mb-3">Follow Us</p>
               <div className="flex gap-3">
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
                     aria-label={social.name}
-                    className="flex items-center justify-center w-11 h-11 rounded-lg bg-dark-card border border-dark-border text-gray-400 hover:text-primary hover:border-primary/40 hover:bg-primary/10 transition-all duration-300 hover:scale-110 text-sm font-bold"
+                    className="flex items-center justify-center w-11 h-11 rounded-xl border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-white hover:border-primary/50 hover:bg-primary/15 hover:shadow-[0_0_14px_rgba(59,158,255,0.3)] transition-all duration-300 hover:-translate-y-0.5 text-sm font-bold"
                   >
-                    {social.icon}
+                    {typeof social.icon === 'string' ? (
+                      <span aria-hidden="true">{social.icon}</span>
+                    ) : (
+                      <social.icon className="w-4 h-4" aria-hidden="true" />
+                    )}
                   </a>
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right column – Contact form */}
-          <div className="animate-fade-in-up [animation-delay:200ms]">
+          <Reveal delay={0.12}>
             <form
               onSubmit={handleSubmit}
-              className="relative p-6 sm:p-8 rounded-2xl bg-dark-card/60 backdrop-blur-xl border border-dark-border shadow-2xl shadow-black/20"
+              className="surface relative p-6 sm:p-8 rounded-2xl"
             >
-              {/* Glow accent */}
-              <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 opacity-0 hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm" />
+              {/* top edge highlight */}
+              <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
               <h4 className="text-xl font-heading font-semibold text-white mb-6">
                 Send us a message
@@ -128,7 +145,7 @@ export default function ContactSection() {
               <div className="space-y-5">
                 {/* Name */}
                 <div>
-                  <label htmlFor="contact-name" className="block text-sm text-gray-400 mb-1.5">
+                  <label htmlFor="contact-name" className="block text-sm text-slate-400 mb-1.5">
                     Your Name
                   </label>
                   <input
@@ -144,7 +161,7 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="contact-email" className="block text-sm text-gray-400 mb-1.5">
+                  <label htmlFor="contact-email" className="block text-sm text-slate-400 mb-1.5">
                     Email Address
                   </label>
                   <input
@@ -160,26 +177,32 @@ export default function ContactSection() {
 
                 {/* Subject */}
                 <div>
-                  <label htmlFor="contact-subject" className="block text-sm text-gray-400 mb-1.5">
+                  <label htmlFor="contact-subject" className="block text-sm text-slate-400 mb-1.5">
                     Subject
                   </label>
-                  <select
-                    id="contact-subject"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className={`${inputClasses} appearance-none cursor-pointer`}
-                  >
-                    {subjectOptions.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="contact-subject"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className={`${inputClasses} appearance-none cursor-pointer pr-10`}
+                    >
+                      {subjectOptions.map((opt) => (
+                        <option key={opt} value={opt} className="bg-dark-card">
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="contact-message" className="block text-sm text-gray-400 mb-1.5">
+                  <label htmlFor="contact-message" className="block text-sm text-slate-400 mb-1.5">
                     Message
                   </label>
                   <textarea
@@ -197,33 +220,34 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative w-full py-3.5 rounded-lg font-semibold text-white overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  aria-live="polite"
+                  className="btn-primary group w-full py-3.5 rounded-xl font-semibold"
                 >
-                  {/* Gradient bg */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary to-secondary" />
-                  {/* Glow */}
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-60 blur-xl transition-opacity duration-300" />
-                  <span className="relative z-10 flex items-center justify-center gap-2">
+                  <span className="flex items-center justify-center gap-2">
                     {isSubmitting ? (
                       <>
-                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <LoaderCircle className="w-5 h-5 animate-spin" aria-hidden="true" />
                         Sending...
                       </>
                     ) : submitted ? (
-                      <>✓ Message Sent!</>
+                      <>
+                        <Check className="w-5 h-5" aria-hidden="true" />
+                        Message Sent!
+                      </>
                     ) : (
                       <>
                         Send Message
-                        <span className="group-hover:translate-x-1 transition-transform duration-300">
-                          →
-                        </span>
+                        <ArrowRight
+                          className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                          aria-hidden="true"
+                        />
                       </>
                     )}
                   </span>
                 </button>
               </div>
             </form>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
