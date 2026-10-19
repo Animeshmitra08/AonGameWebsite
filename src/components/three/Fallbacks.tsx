@@ -4,7 +4,7 @@ import { Gamepad2 } from 'lucide-react';
 export function HeroControllersFallback() {
   // mirrors getLayout in HeroScene: beside the copy, or a row above it when stacked
   const icon =
-    'absolute top-[50vh] h-[clamp(7rem,20vmin,15rem)] w-[clamp(7rem,20vmin,15rem)] -translate-y-1/2 text-slate-300/15 drop-shadow-[0_0_30px_rgba(59,158,255,0.35)] hero-stacked:top-[calc(88px_+_min(38vw,300px)_*_0.42)] hero-stacked:h-[min(30vw,13rem)] hero-stacked:w-[min(30vw,13rem)]';
+    'absolute top-[50vh] h-[clamp(7rem,20vmin,15rem)] w-[clamp(7rem,20vmin,15rem)] -translate-y-1/2 text-slate-300/15 drop-shadow-[0_0_30px_rgba(59,158,255,0.35)] hero-stacked:top-[calc(88px_+_min(38vw,260px)_*_0.5)] hero-stacked:h-[min(30vw,13rem)] hero-stacked:w-[min(30vw,13rem)]';
   return (
     <div className="absolute inset-0">
       <Gamepad2 className={`${icon} left-[6%] -rotate-12 hero-stacked:left-[14%]`} strokeWidth={0.8} />

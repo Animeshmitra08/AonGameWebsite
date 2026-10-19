@@ -158,7 +158,7 @@ export default function HeroSection() {
 
       {/* -------- content -------- */}
       {/* stacked layout: reserve the row the controllers occupy (see getLayout in HeroScene) */}
-      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-4 pt-24 pb-6 text-center sm:px-6 md:pt-28 hero-stacked:justify-start hero-stacked:pt-[calc(104px_+_min(38vw,300px)_*_0.85)]!">
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-4 pt-24 pb-6 text-center sm:px-6 md:pt-28 hero-stacked:justify-start hero-stacked:pt-[calc(112px_+_min(38vw,260px))]!">
         <span className="eyebrow animate-fade-in-up">
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
           Indie Game Studio
