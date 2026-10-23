@@ -10,6 +10,7 @@ interface Game {
   tag: string;
   tagEmoji: string;
   rating: number;
+  bgimage?: string;
   gradient: string;
   tagColor: string;
   googlePlay: StoreListing;
@@ -154,6 +155,30 @@ function GameCard({ game, index }: { game: Game; index: number }) {
         >
           {monogram(game.name)}
         </span>
+        {/* screenshot in a half-circle peeking in from the left edge, mirroring the monogram */}
+        {game.bgimage && (
+          <div
+            aria-hidden="true"
+            className="absolute left-0 top-[42%] h-36 w-36 -translate-x-1/2 -translate-y-1/2 transition-[translate,scale] duration-700 ease-out group-hover:-translate-x-[38%] group-hover:scale-105"
+          >
+            <div className="relative h-full w-full overflow-hidden rounded-full bg-white/[0.04] ring-1 ring-white/20 shadow-[0_0_30px_-6px_rgba(0,0,0,0.6)] transition-[box-shadow] duration-700 group-hover:ring-white/40 group-hover:shadow-[0_0_34px_-4px_rgba(59,158,255,0.45)]">
+              <img
+                src={game.bgimage}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+                className="h-full w-full object-cover opacity-30 transition-[scale,opacity] duration-700 ease-out group-hover:scale-115 group-hover:opacity-55"
+              />
+              {/* tint so the photo sits in the card's colour */}
+              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_70%_50%,transparent_30%,rgba(0,0,0,0.45)_100%)]" />
+            </div>
+            {/* rotating arc on hover */}
+            <div className="absolute -inset-2 rounded-full border-2 border-transparent border-t-white/50 border-r-primary/50 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:[animation:spin_4s_linear_infinite]" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.22)_0%,transparent_55%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/20 to-transparent" />
 

@@ -8,6 +8,7 @@
       "tag": "Racing",
       "tagEmoji": "🏎️",
       "rating": 5,
+      "bgimage": "https://play-lh.googleusercontent.com/tfPz4SvvzS_VYKb538_q54JKNiKDFmsyVDyE_9nm6cHyJmthq0zcI-rKEGSSU5uGSZorNC8K15fT4bol-TLUnQ=w240-h480-rw",
       "gradient": "linear-gradient(135deg, #0ff 0%, #6366f1 50%, #a855f7 100%)",
       "tagColor": "bg-purple-600/80",
       "googlePlay": {
@@ -44,6 +45,7 @@
       "tag": "Puzzle",
       "tagEmoji": "🧩",
       "rating": 4,
+      "bgimage": "https://play-lh.googleusercontent.com/F2CDGbfMbKsJQ1uafPiUnzt9or5mGWJwWfeE4nipDOgxNoikKy40TXD22dsk518giO3YPIeeGcyjV-IBsmTDVz8=w240-h480-rw",
       "gradient": "linear-gradient(135deg, #1e3a5f 0%, #0ea5e9 50%, #38bdf8 100%)",
       "tagColor": "bg-sky-600/80",
       "googlePlay": {

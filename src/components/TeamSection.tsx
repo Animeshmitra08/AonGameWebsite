@@ -1,5 +1,8 @@
 import { Gamepad2, type LucideIcon } from 'lucide-react';
 import Reveal from './Reveal';
+import team from '../data/team.json';
+
+type SocialType = 'twitter' | 'linkedin' | 'gaming';
 
 interface TeamMember {
   name: string;
@@ -7,60 +10,17 @@ interface TeamMember {
   initials: string;
   bio: string;
   gradient: string;
-  /** icon is a Lucide component, or a text glyph for brands Lucide no longer ships */
-  socials: { icon: LucideIcon | string; label: string; href: string }[];
+  socials: { type: SocialType; label: string; href: string }[];
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Alex Chen',
-    role: 'Creative Director',
-    initials: 'AC',
-    gradient: 'from-primary via-accent to-purple-500',
-    bio: 'Visionary storyteller with 12+ years crafting immersive game worlds. Alex leads the creative vision behind every title we ship.',
-    socials: [
-      { icon: '𝕏', label: 'Twitter', href: '#' },
-      { icon: 'in', label: 'LinkedIn', href: '#' },
-      { icon: Gamepad2, label: 'Gaming', href: '#' },
-    ],
-  },
-  {
-    name: 'Sarah Mitchell',
-    role: 'Lead Developer',
-    initials: 'SM',
-    gradient: 'from-accent via-emerald-400 to-cyan-400',
-    bio: 'Full-stack engine architect who turns wild ideas into buttery-smooth 60fps experiences. Passionate about performant code.',
-    socials: [
-      { icon: '𝕏', label: 'Twitter', href: '#' },
-      { icon: 'in', label: 'LinkedIn', href: '#' },
-      { icon: Gamepad2, label: 'Gaming', href: '#' },
-    ],
-  },
-  {
-    name: 'James Park',
-    role: 'Art Director',
-    initials: 'JP',
-    gradient: 'from-purple-500 via-pink-500 to-rose-400',
-    bio: 'Award-winning artist blending stylized aesthetics with cutting-edge rendering. Every pixel tells a story under his direction.',
-    socials: [
-      { icon: '𝕏', label: 'Twitter', href: '#' },
-      { icon: 'in', label: 'LinkedIn', href: '#' },
-      { icon: Gamepad2, label: 'Gaming', href: '#' },
-    ],
-  },
-  {
-    name: 'Luna Rodriguez',
-    role: 'Sound Designer',
-    initials: 'LR',
-    gradient: 'from-amber-400 via-orange-500 to-red-500',
-    bio: 'Audio alchemist who sculpts soundscapes that pull players deeper into the experience. Grammy-nominated composer and sound engineer.',
-    socials: [
-      { icon: '𝕏', label: 'Twitter', href: '#' },
-      { icon: 'in', label: 'LinkedIn', href: '#' },
-      { icon: Gamepad2, label: 'Gaming', href: '#' },
-    ],
-  },
-];
+/** Lucide component, or a text glyph for brands Lucide no longer ships */
+const socialIcons: Record<SocialType, LucideIcon | string> = {
+  twitter: '𝕏',
+  linkedin: 'in',
+  gaming: Gamepad2,
+};
+
+const teamMembers = team as TeamMember[];
 
 function TeamCard({ member }: { member: TeamMember }) {
   return (
@@ -100,20 +60,23 @@ function TeamCard({ member }: { member: TeamMember }) {
 
       {/* Social Icons */}
       <div className="relative flex items-center gap-3">
-        {member.socials.map((social) => (
-          <a
-            key={social.label}
-            href={social.href}
-            aria-label={social.label}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-sm font-bold text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/15 hover:text-white hover:shadow-[0_0_14px_rgba(59,158,255,0.35)]"
-          >
-            {typeof social.icon === 'string' ? (
-              <span aria-hidden="true">{social.icon}</span>
-            ) : (
-              <social.icon className="h-4 w-4" aria-hidden="true" />
-            )}
-          </a>
-        ))}
+        {member.socials.map((social) => {
+          const Icon = socialIcons[social.type];
+          return (
+            <a
+              key={social.label}
+              href={social.href}
+              aria-label={social.label}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-sm font-bold text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/15 hover:text-white hover:shadow-[0_0_14px_rgba(59,158,255,0.35)]"
+            >
+              {typeof Icon === 'string' ? (
+                <span aria-hidden="true">{Icon}</span>
+              ) : (
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              )}
+            </a>
+          );
+        })}
       </div>
     </div>
   );
