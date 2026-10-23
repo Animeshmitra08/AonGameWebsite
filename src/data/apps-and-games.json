@@ -30,7 +30,7 @@
       "tagColor": "bg-red-600/80",
       "googlePlay": {
         "available": false,
-        "link": null
+        "link": "https://play.google.com/store/apps/details?id=com.aondigicon.skyrun"
       },
       "appStore": {
         "available": false,
@@ -47,8 +47,8 @@
       "gradient": "linear-gradient(135deg, #1e3a5f 0%, #0ea5e9 50%, #38bdf8 100%)",
       "tagColor": "bg-sky-600/80",
       "googlePlay": {
-        "available": false,
-        "link": null
+        "available": true,
+        "link": "https://play.google.com/store/apps/details?id=com.aondigicon.brainquest"
       },
       "appStore": {
         "available": false,
